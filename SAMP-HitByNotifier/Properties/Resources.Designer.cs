@@ -59,5 +59,15 @@ namespace SAMP_HitByNotifier.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] database {
+            get {
+                object obj = ResourceManager.GetObject("database", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
