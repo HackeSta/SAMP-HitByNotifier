@@ -8,7 +8,7 @@ namespace SAMP_HitByNotifier
     public partial class MainForm : Form
     {
         #region Initialisations
-        Timer HitTimer = new Timer();
+       System.Timers.Timer HitTimer = new System.Timers.Timer();
         int newHealth, oldHealth = -1, oldID = -1, newID, Ticks, oldTicks = -1;
         private static int SpamInterval = 1;
         Color messageColor = Color.Blue;
@@ -18,7 +18,7 @@ namespace SAMP_HitByNotifier
         {
             InitializeComponent();
             HitTimer.Interval = 1;
-            HitTimer.Tick += HitTimer_Tick;
+            HitTimer.Elapsed += HitTimer_Tick;
             DatabaseManager.Initalise();
             SetColor(DatabaseManager.Color.ToColor());
             Spam = DatabaseManager.Interval;
@@ -30,7 +30,7 @@ namespace SAMP_HitByNotifier
         {
             newHealth = Player.GetHealth();
             if (oldHealth == -1) oldHealth = newHealth;
-            else if (newHealth < oldHealth && AntiSpam())  //If health is changed
+            else if (newHealth < oldHealth)  //If health is changed
             {
                 oldHealth = newHealth;
                 newHit(Game.getWeaponID()); // newHit() sends the message to the game
@@ -86,17 +86,7 @@ namespace SAMP_HitByNotifier
             changeMessage.Show();
         }
 
-        private bool AntiSpam()
-        {
-            newID = Game.getWeaponID();
-            if (oldID == -1) oldID = newID;
-            if (oldTicks == -1) oldTicks = Ticks;
-            if(oldID != newID || (Ticks - oldTicks) > SpamInterval)
-            {
-                return true;
-            }
-            return false;
-        }
+       
         private void btn_Link_Click(object sender, EventArgs e)  //Attaches the process to the game
         {
             if (Game.Init())
