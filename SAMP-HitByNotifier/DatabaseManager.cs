@@ -84,6 +84,31 @@ namespace SAMP_HitByNotifier
 
         }
 
+        public static int NameToID(string Name)
+        {
+            if (!String.IsNullOrEmpty(Name))
+            {
+                return weapon_ids[weapon_names.IndexOf(Name)];
+            }
+            return 0;
+        }
+
+        public static void UpdateMessage(int weapon_id, string newmessage)
+        {
+
+            dbConnection = new SQLiteConnection("Data Source=" + Path.Combine(dbFullPath, dbName) + ";Version=3;");
+            dbConnection.Open();
+            dbCommand = dbConnection.CreateCommand();
+            string command = "Update Messages set Message = '" + newmessage + "' where weapon_id = '"+ weapon_id.ToString() +"'";
+            dbCommand.CommandText = command;
+            dbCommand.ExecuteNonQuery(); 
+            dbConnection.Close();
+            dbCommand.Dispose();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Initalise();
+        }
+
         public static string Color
         {
             get
@@ -109,6 +134,21 @@ namespace SAMP_HitByNotifier
             }
         }
 
+        public static List<int> WeaponID
+        {
+            get
+            {
+                return weapon_ids;
+            }
+        }
+
+        public static List<string> WeaponNames
+        {
+            get
+            {
+                return weapon_names;
+            }
+        }
             
 
         public static void Close()

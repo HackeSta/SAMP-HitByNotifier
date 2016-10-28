@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tb_Color = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.button_Messages = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,11 +132,22 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Color: ";
             // 
+            // button_Messages
+            // 
+            this.button_Messages.Location = new System.Drawing.Point(462, 167);
+            this.button_Messages.Name = "button_Messages";
+            this.button_Messages.Size = new System.Drawing.Size(75, 23);
+            this.button_Messages.TabIndex = 4;
+            this.button_Messages.Text = "Messages";
+            this.button_Messages.UseVisualStyleBackColor = true;
+            this.button_Messages.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 246);
+            this.Controls.Add(this.button_Messages);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btn_Link);
             this.Controls.Add(this.rtb_Display);
@@ -160,6 +172,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tb_Spam;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button_Messages;
     }
 }
 

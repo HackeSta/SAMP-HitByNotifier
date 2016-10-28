@@ -80,6 +80,12 @@ namespace SAMP_HitByNotifier
             DatabaseManager.Close();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ChangeMessage changeMessage = new ChangeMessage();
+            changeMessage.Show();
+        }
+
         private bool AntiSpam()
         {
             newID = Game.getWeaponID();
