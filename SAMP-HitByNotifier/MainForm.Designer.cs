@@ -32,11 +32,11 @@
             this.btn_Link = new System.Windows.Forms.Button();
             this.button_Color = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tb_Color = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tb_Spam = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tb_Color = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,24 +83,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Message Options";
             // 
-            // tb_Color
+            // label3
             // 
-            this.tb_Color.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.tb_Color.Location = new System.Drawing.Point(171, 24);
-            this.tb_Color.MaxLength = 6;
-            this.tb_Color.Name = "tb_Color";
-            this.tb_Color.Size = new System.Drawing.Size(100, 20);
-            this.tb_Color.TabIndex = 4;
-            this.tb_Color.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Color: ";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(138, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 13);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "seconds";
             // 
             // tb_Spam
             // 
@@ -122,14 +112,24 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "AntiSpam Interval:";
             // 
-            // label3
+            // tb_Color
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(138, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "seconds";
+            this.tb_Color.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.tb_Color.Location = new System.Drawing.Point(171, 24);
+            this.tb_Color.MaxLength = 6;
+            this.tb_Color.Name = "tb_Color";
+            this.tb_Color.Size = new System.Drawing.Size(100, 20);
+            this.tb_Color.TabIndex = 4;
+            this.tb_Color.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Color: ";
             // 
             // MainForm
             // 
@@ -142,6 +142,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "SAMP-HitByNotifier";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

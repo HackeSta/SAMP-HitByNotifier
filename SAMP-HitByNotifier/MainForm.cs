@@ -20,8 +20,8 @@ namespace SAMP_HitByNotifier
             HitTimer.Interval = 1;
             HitTimer.Tick += HitTimer_Tick;
             DatabaseManager.Initalise();
-            SetColor(messageColor);
-            Spam = SpamInterval;
+            SetColor(DatabaseManager.Color.ToColor());
+            Spam = DatabaseManager.Interval;
             tb_Spam.Text = Spam.ToString();
 
         }
@@ -70,6 +70,14 @@ namespace SAMP_HitByNotifier
         private void tb_Spam_TextChanged(object sender, EventArgs e)
         {
             Spam = Convert.ToInt32(tb_Spam.Text);
+            
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DatabaseManager.Color = messageColor.ToHex();
+            DatabaseManager.Interval = Spam;
+            DatabaseManager.Close();
         }
 
         private bool AntiSpam()
