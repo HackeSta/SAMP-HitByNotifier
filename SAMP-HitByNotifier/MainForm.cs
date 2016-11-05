@@ -8,10 +8,11 @@ namespace SAMP_HitByNotifier
     public partial class MainForm : Form
     {
         #region Initialisations
-       System.Timers.Timer HitTimer = new System.Timers.Timer();
+        System.Timers.Timer HitTimer = new System.Timers.Timer(), antiSpamTimer = new System.Timers.Timer();
         int newHealth, oldHealth = -1, oldID = -1, newID, Ticks, oldTicks = -1;
         private static int SpamInterval = 1;
         Color messageColor = Color.Blue;
+        bool antiSpam = true;
         #endregion
 
         public MainForm()
@@ -19,6 +20,8 @@ namespace SAMP_HitByNotifier
             InitializeComponent();
             HitTimer.Interval = 1;
             HitTimer.Elapsed += HitTimer_Tick;
+            antiSpamTimer.Interval = 1000;
+            antiSpamTimer.Elapsed += AntiSpamTimer_Elapsed;
             DatabaseManager.Initalise();
             SetColor(DatabaseManager.Color.ToColor());
             Spam = DatabaseManager.Interval;
@@ -26,14 +29,29 @@ namespace SAMP_HitByNotifier
 
         }
 
+        private void AntiSpamTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            antiSpam = true;
+            antiSpamTimer.Stop();
+        }
+
         private void HitTimer_Tick(object sender, EventArgs e)  //Checks for changes to health
         {
             newHealth = Player.GetHealth();
+            newID = Game.getWeaponID();
+            if (oldID == -1) oldID = newID;
+            if(oldID != newID)
+            {
+                antiSpam = true;
+                antiSpamTimer.Stop();
+            }
             if (oldHealth == -1) oldHealth = newHealth;
-            else if (newHealth < oldHealth)  //If health is changed
+            else if (newHealth < oldHealth && antiSpam)  //If health is changed
             {
                 oldHealth = newHealth;
                 newHit(Game.getWeaponID()); // newHit() sends the message to the game
+                antiSpam = false;
+                antiSpamTimer.Start();
             }
             else if (newHealth >= oldHealth)
             {
@@ -70,7 +88,7 @@ namespace SAMP_HitByNotifier
         private void tb_Spam_TextChanged(object sender, EventArgs e)
         {
             Spam = Convert.ToInt32(tb_Spam.Text);
-            
+            antiSpamTimer.Interval = Spam * 1000;   
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -104,7 +122,7 @@ namespace SAMP_HitByNotifier
         private void newHit(int ID)  //Called whenever health is decreased
         {
             shadowAPI2.Chat.AddMessage(DatabaseManager.GetMessage(ID), messageColor);
-            rtb_Display.AppendText(Environment.NewLine + "Recorded new Hit: " + ID.ToString());
+          //  rtb_Display.AppendText(Environment.NewLine + "Recorded new Hit: " + ID.ToString());
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)  //The Hex Color Box Text Change Event, used for ensuring Hex Input
